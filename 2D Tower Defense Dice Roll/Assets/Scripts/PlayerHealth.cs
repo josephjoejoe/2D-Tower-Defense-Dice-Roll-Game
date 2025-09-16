@@ -5,20 +5,40 @@ using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
 {
-    public float Health;
+    public float health;
     public float maxHealth;
-    public Image HealthBar; 
+    public Image healthBar;
 
+    Vector2 startPos;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    // Start is called before the first frame update
     void Start()
     {
-        
+        maxHealth = health;
+
+        startPos = transform.position;
     }
 
     // Update is called once per frame
     void Update()
     {
+        healthBar.fillAmount = Mathf.Clamp(health / maxHealth, 0, 1);
+
+        health = Mathf.Clamp(health, 0f, maxHealth);
+
+        if (health <= 0)
+        {
+            Die();
+        }
+    }
+    void Die()
+    {
         
+    }
+    
+    public void TakeDamage(float _damage)
+    {
+        health = Mathf.Clamp(health - _damage, 0f, maxHealth);
+
     }
 }
